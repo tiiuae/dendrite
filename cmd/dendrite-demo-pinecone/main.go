@@ -64,6 +64,8 @@ var (
 	instancePeer   = flag.String("peer", "", "the static Pinecone peers to connect to, comma separated-list")
 	instanceListen = flag.String("listen", ":0", "the port Pinecone peers can connect to")
 	instanceDir    = flag.String("dir", ".", "the directory to store the databases in (if --config not specified)")
+        certFile       = flag.String("tls-cert", "", "The PEM formatted X509 certificate to use for TLS")
+        keyFile        = flag.String("tls-key", "", "The PEM private key to use for TLS")
 )
 
 // nolint:gocyclo
@@ -290,9 +292,15 @@ func main() {
 		logrus.Fatal(httpServer.Serve(pQUIC.Protocol("matrix")))
 	}()
 	go func() {
-		httpBindAddr := fmt.Sprintf(":%d", *instancePort)
-		logrus.Info("Listening on ", httpBindAddr)
-		logrus.Fatal(http.ListenAndServe(httpBindAddr, httpRouter))
+               if *certFile != "" && *keyFile != "" {
+                       httpBindAddr := fmt.Sprintf(":%d", *instancePort)
+                       logrus.Info("HTTPS Listening on ", httpBindAddr)
+                       logrus.Fatal(http.ListenAndServeTLS(httpBindAddr, *certFile, *keyFile, httpRouter))
+               } else {
+                       httpBindAddr := fmt.Sprintf(":%d", *instancePort)
+                       logrus.Info("HTTP Listening on ", httpBindAddr)
+                       logrus.Fatal(http.ListenAndServe(httpBindAddr, httpRouter))
+               }
 	}()
 
 	base.WaitForShutdown()
