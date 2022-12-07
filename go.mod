@@ -1,5 +1,6 @@
 module github.com/matrix-org/dendrite
 
+replace github.com/matrix-org/pinecone v0.0.0-20220803093810-b7a830c08fb9 => ../pinecone
 require (
 	github.com/Arceliar/ironwood v0.0.0-20220306165321-319147a02d98
 	github.com/Arceliar/phony v0.0.0-20210209235338-dde1a8dca979
