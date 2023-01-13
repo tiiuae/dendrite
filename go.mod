@@ -1,6 +1,7 @@
 module github.com/matrix-org/dendrite
 
-replace github.com/matrix-org/pinecone v0.0.0-20220803093810-b7a830c08fb9 => github.com/Juha-Park-TII-SSRC/pinecone v0.0.0-20221208095218-6b0c6d85b20a
+//replace github.com/matrix-org/pinecone v0.0.0-20220803093810-b7a830c08fb9 => github.com/Juha-Park-TII-SSRC/pinecone v0.0.0-20221208095218-6b0c6d85b20a
+replace github.com/matrix-org/pinecone v0.0.0-20220803093810-b7a830c08fb9 => github.com/juha-park-tii-ssrc/pinecone v0.0.0-20230112063527-a2cfdd32c78a
 
 require (
 	github.com/Arceliar/ironwood v0.0.0-20220306165321-319147a02d98
