@@ -89,7 +89,7 @@ func main() {
 		pk = sk.Public().(ed25519.PublicKey)
 	}
 
-	pRouter := pineconeRouter.NewRouter(logrus.WithField("pinecone", "router"), sk, false)
+	pRouter := pineconeRouter.NewRouter(logrus.WithField("pinecone", "router"), sk)
 	pQUIC := pineconeSessions.NewSessions(logrus.WithField("pinecone", "sessions"), pRouter, []string{"matrix"})
 	pMulticast := pineconeMulticast.NewMulticast(logrus.WithField("pinecone", "multicast"), pRouter)
 	pManager := pineconeConnections.NewConnectionManager(pRouter, nil)
